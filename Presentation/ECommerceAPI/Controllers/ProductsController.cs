@@ -9,10 +9,8 @@ using ECommerceAPI.Application.Features.Queries.Product.GetAllProduct;
 using ECommerceAPI.Application.Features.Queries.Product.GetByIdProduct;
 using ECommerceAPI.Application.Features.Queries.ProductImageFile.GetProductImages;
 using ECommerceAPI.Application.Repositories;
-using ECommerceAPI.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceAPI.Controllers
 {
