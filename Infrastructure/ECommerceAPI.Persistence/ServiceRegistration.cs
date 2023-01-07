@@ -13,6 +13,9 @@ using ECommerceAPI.Persistence.Configurations;
 using ECommerceAPI.Application.Repositories;
 using ECommerceAPI.Persistence.Repositories;
 using ECommerceAPI.Domain.Entities.Identity;
+using ECommerceAPI.Application.Abstractions.Services;
+using ECommerceAPI.Persistence.Services;
+using ECommerceAPI.Application.Abstractions.Services.Authentications;
 
 namespace ECommerceAPI.Persistence
 {
@@ -20,7 +23,7 @@ namespace ECommerceAPI.Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
-           // services.AddSingleton<IProductService, ProductService>();
+            // services.AddSingleton<IProductService, ProductService>();
             services.AddDbContext<ECommerceAPIDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
 
             services.AddIdentity<AppUser, AppRole>(options =>
@@ -50,6 +53,11 @@ namespace ECommerceAPI.Persistence
 
             services.AddScoped<IInvoiceFileReadRepository, InvoiceFileReadRepository>();
             services.AddScoped<IInvoiceFileWriteRepository, InvoiceFileWriteRepository>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IExternalAuthentication, AuthService>();
+            services.AddScoped<IInternalAuthentication, AuthService>();
         }
     }
 }
