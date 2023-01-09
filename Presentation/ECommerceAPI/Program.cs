@@ -18,6 +18,7 @@ using Serilog.Sinks.PostgreSQL;
 using System.Security.Claims;
 using ECommerceAPI.Configurations.ColumnWriters;
 using ECommerceAPI.Extensions;
+using ECommerceAPI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
+builder.Services.AddSignalRServices();
 
 //builder.Services.AddStorage<LocalStorage>();
 builder.Services.AddStorage<AzureStorage>();
@@ -122,5 +124,6 @@ app.Use(async (context, next) =>
 });
 
 app.MapControllers();
+app.MapHubs();
 
 app.Run();
