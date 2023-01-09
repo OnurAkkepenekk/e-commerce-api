@@ -17,6 +17,7 @@ using Serilog.Core;
 using Serilog.Sinks.PostgreSQL;
 using System.Security.Claims;
 using ECommerceAPI.Configurations.ColumnWriters;
+using ECommerceAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -98,6 +99,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 
 app.UseStaticFiles();
 
