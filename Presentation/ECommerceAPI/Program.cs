@@ -22,6 +22,9 @@ using ECommerceAPI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
+//Client'tan gelen request neticesinde olusturulan HttpContext nesnesine katmanlardaki class'lar üzerinden(busineess logic) eriþebilmemizi saðlayan bir servistir.
+
 // Add services to the container.
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
