@@ -1,9 +1,8 @@
-﻿using ECommerceAPI.Application.DTOs.Order;
-using ECommerceAPI.Application.Features.Commands.Order.CreateOrder;
-using ECommerceAPI.Application.Features.Queries.Order;
+﻿using ECommerceAPI.Application.Features.Commands.Order.CreateOrder;
+using ECommerceAPI.Application.Features.Queries.Order.GetAllOrders;
+using ECommerceAPI.Application.Features.Queries.Order.GetByOrderId;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceAPI.Controllers
@@ -27,6 +26,14 @@ namespace ECommerceAPI.Controllers
             GetAllOrdersQueryResponse response = await _mediator.Send(getAllOrdersQueryRequest);
             return Ok(response);
         }
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult> GetOrderById([FromRoute] GetOrderByIdQueryRequest getOrderByIdQueryRequest)
+        {
+            GetOrderByIdQueryResponse response = await _mediator.Send(getOrderByIdQueryRequest);
+            return Ok(response);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder(CreateOrderCommandRequest createOrderCommandRequest)
