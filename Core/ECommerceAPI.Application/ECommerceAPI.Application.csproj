@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ECommerceAPI.Domain\ECommerceAPI.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Queries\Order\" />
-  </ItemGroup>
-
 </Project>
