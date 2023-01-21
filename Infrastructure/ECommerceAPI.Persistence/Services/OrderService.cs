@@ -26,15 +26,15 @@ namespace ECommerceAPI.Persistence.Services
             _completedOrderReadRepository = completedOrderReadRepository;
         }
 
-        public async Task CompleteOrderAsync(string id)
-        {
-            Order order = await _orderReadRepository.GetByIdAsync(id);
-            if (order != null)
-            {
-                await _completedOrderWriteRepository.AddAsync(new() { OrderId = Guid.Parse(id) });
-                await _completedOrderWriteRepository.SaveAsync();
-            }
-        }
+        //public async Task CompleteOrderAsync(string id)
+        //{
+        //    Order order = await _orderReadRepository.GetByIdAsync(id);
+        //    if (order != null)
+        //    {
+        //        await _completedOrderWriteRepository.AddAsync(new() { OrderId = Guid.Parse(id) });
+        //        await _completedOrderWriteRepository.SaveAsync();
+        //    }
+        //}
 
         public async Task CreateOrderAsync(CreateOrder createOrder)
         {
@@ -130,6 +130,27 @@ namespace ECommerceAPI.Persistence.Services
                 OrderCode = data2.OrderCode,
                 Completed = data2.Completed
             };
+        }
+
+        public async Task<(bool, CompletedOrderDTO)> CompleteOrderAsync(string id)
+        {
+            Order? order = await _orderReadRepository.Table
+                  .Include(o => o.Basket)
+                  .ThenInclude(b => b.User)
+                  .FirstOrDefaultAsync(o => o.Id == Guid.Parse(id));
+
+            if (order != null)
+            {
+                await _completedOrderWriteRepository.AddAsync(new() { OrderId = Guid.Parse(id) });
+                return (await _completedOrderWriteRepository.SaveAsync() > 0, new()
+                {
+                    OrderCode = order.OrderCode,
+                    OrderDate = order.CreatedDate,
+                    Username = order.Basket.User.UserName,
+                    EMail = order.Basket.User.Email
+                });
+            }
+            return (false, null);
         }
     }
 }
