@@ -1,11 +1,7 @@
 ﻿using ECommerceAPI.Application.Abstractions.Services;
 using ECommerceAPI.Application.Features.Commands.AppUser.CreateUser;
-using ECommerceAPI.Application.Features.Commands.AppUser.FacebookLogin;
-using ECommerceAPI.Application.Features.Commands.AppUser.GoogleLogin;
-using ECommerceAPI.Application.Features.Commands.AppUser.LoginUser;
 using ECommerceAPI.Application.Features.Commands.AppUser.UpdatePassword;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceAPI.Controllers
