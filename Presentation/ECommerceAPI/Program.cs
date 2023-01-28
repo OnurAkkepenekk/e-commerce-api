@@ -19,6 +19,7 @@ using System.Security.Claims;
 using ECommerceAPI.Configurations.ColumnWriters;
 using ECommerceAPI.Extensions;
 using ECommerceAPI.SignalR;
+using ECommerceAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,7 +71,11 @@ builder.Services.AddHttpLogging(logging =>
 });
 
 
-builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationFilter>();
+    options.Filters.Add<RolePermissionFilter>();
+})
     .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>())
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 
