@@ -1,22 +1,15 @@
-﻿using ECommerceAPI.Application.Abstractions;
-using ECommerceAPI.Persistence.Concreates;
-using ECommerceAPI.Persistence.Contexts;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using ECommerceAPI.Persistence.Configurations;
-using ECommerceAPI.Application.Repositories;
-using ECommerceAPI.Persistence.Repositories;
-using ECommerceAPI.Domain.Entities.Identity;
-using ECommerceAPI.Application.Abstractions.Services;
-using ECommerceAPI.Persistence.Services;
+﻿using ECommerceAPI.Application.Abstractions.Services;
 using ECommerceAPI.Application.Abstractions.Services.Authentications;
+using ECommerceAPI.Application.Repositories;
+using ECommerceAPI.Domain.Entities.Identity;
+using ECommerceAPI.Persistence.Configurations;
+using ECommerceAPI.Persistence.Contexts;
+using ECommerceAPI.Persistence.Repositories;
+using ECommerceAPI.Persistence.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ProductService = ECommerceAPI.Persistence.Services.ProductService;
 
 namespace ECommerceAPI.Persistence
 {
@@ -81,6 +74,7 @@ namespace ECommerceAPI.Persistence
             services.AddScoped<IRoleService, RoleService>();
 
             services.AddScoped<IAuthorizationEndpointService, AuthorizationEndpointService>();
+            services.AddScoped<IProductService, ProductService>();
         }
     }
 }
